@@ -110,19 +110,35 @@ const PolygonDrawingTool = () => {
         ctx.font = "14px Arial";
         const textWidth = ctx.measureText(text).width;
         const padding = 8;
-    
-        ctx.fillStyle = "rgba(0, 0, 0, 0.8)"; // Dark semi-transparent background
-        ctx.fillRect(
-          firstPoint.x - textWidth / 2 - padding, 
-          firstPoint.y - 20, 
-          textWidth + padding * 2, 
-          24
-        );
-    
-        ctx.fillStyle = "white"; // Text color
+        const rectX = firstPoint.x - textWidth / 2 - padding;
+        const rectY = firstPoint.y - 20;
+        const rectWidth = textWidth + padding * 2;
+        const rectHeight = 24;
+        const borderRadius = 4; // Reduced roundness
+      
+        // Draw slightly rounded rectangle
+        ctx.beginPath();
+        ctx.moveTo(rectX + borderRadius, rectY);
+        ctx.lineTo(rectX + rectWidth - borderRadius, rectY);
+        ctx.quadraticCurveTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + borderRadius);
+        ctx.lineTo(rectX + rectWidth, rectY + rectHeight - borderRadius);
+        ctx.quadraticCurveTo(rectX + rectWidth, rectY + rectHeight, rectX + rectWidth - borderRadius, rectY + rectHeight);
+        ctx.lineTo(rectX + borderRadius, rectY + rectHeight);
+        ctx.quadraticCurveTo(rectX, rectY + rectHeight, rectX, rectY + rectHeight - borderRadius);
+        ctx.lineTo(rectX, rectY + borderRadius);
+        ctx.quadraticCurveTo(rectX, rectY, rectX + borderRadius, rectY);
+        ctx.closePath();
+      
+        ctx.fillStyle = "rgba(0, 0, 0, 0.8)"; // Background color
+        ctx.fill();
+      
+        // Draw text
+        ctx.fillStyle = "white"; 
         ctx.textAlign = "center";
         ctx.fillText(text, firstPoint.x, firstPoint.y - 5);
       }
+      
+      
     }
     
   };
