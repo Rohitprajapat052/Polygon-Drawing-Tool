@@ -3,15 +3,14 @@ import React, { useRef, useState, useEffect } from "react";
 const COLORS = ["blue", "green", "purple", "red", "orange", "brown", "teal"];
 
 const LIGHT_COLORS = {
-  blue: "rgba(191, 219, 254, 0.5)",   // blue-200
-  green: "rgba(167, 243, 208, 0.5)",  // green-200
-  purple: "rgba(221, 214, 254, 0.5)", // purple-200
-  red: "rgba(254, 202, 202, 0.5)",    // red-200
-  orange: "rgba(254, 215, 170, 0.5)", // orange-200
-  brown: "rgba(196, 164, 132, 0.5)",  // custom brown
-  teal: "rgba(153, 246, 228, 0.5)",   // teal-200
+  blue: "rgba(147, 197, 253, 0.5)", // blue-300
+  green: "rgba(134, 239, 172, 0.5)", // green-300
+  purple: "rgba(196, 181, 253, 0.5)", // purple-300
+  red: "rgba(252, 165, 165, 0.5)", // red-300
+  orange: "rgba(253, 186, 116, 0.5)", // orange-300
+  brown: "rgba(181, 136, 99, 0.5)", // custom brown
+  teal: "rgba(94, 234, 212, 0.5)", // teal-300
 };
-
 
 const PolygonDrawingTool = () => {
   const canvasRef = useRef(null);
@@ -98,6 +97,21 @@ const PolygonDrawingTool = () => {
       ctx.stroke();
       ctx.setLineDash([]);
     }
+
+    if (points.length > 2) {
+      const firstPoint = points[0];
+      const lastPoint = tempPoint || points[points.length - 1];
+      const distance = Math.sqrt(
+        (lastPoint.x - firstPoint.x) ** 2 + (lastPoint.y - firstPoint.y) ** 2
+      );
+
+      if (distance < 10) {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+        ctx.fillRect(firstPoint.x - 90, firstPoint.y - 20, 120, 30);         ctx.fillStyle = "white";
+        ctx.font = "14px Arial";
+        ctx.fillText("Drop to complete", firstPoint.x - 30, firstPoint.y - 5);
+      }
+    }
   };
 
   useEffect(() => {
@@ -154,7 +168,8 @@ const PolygonDrawingTool = () => {
       );
 
       if (distance < 10) {
-        const polygonTag = prompt("Add tags for this ROI (comma separated):");
+        const polygonTag =
+          prompt("Add tags for this ROI (comma separated):")?.trim() || "None";
         if (polygonTag) {
           setPolygons([
             ...polygons,
@@ -285,7 +300,7 @@ const PolygonDrawingTool = () => {
                     colSpan="2"
                     className="border border-gray-300 px-4 py-2 text-black"
                   >
-                    {polygon.tag || "No tag"}
+                    {polygon.tag !== "None" ? `#${polygon.tag}` : "None"}
                   </td>
                 </tr>
               </tfoot>
