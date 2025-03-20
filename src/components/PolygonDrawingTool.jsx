@@ -3,14 +3,15 @@ import React, { useRef, useState, useEffect } from "react";
 const COLORS = ["blue", "green", "purple", "red", "orange", "brown", "teal"];
 
 const LIGHT_COLORS = {
-  blue: "rgba(147, 197, 253, 0.5)",   // blue-300
-  green: "rgba(134, 239, 172, 0.5)",  // green-300
-  purple: "rgba(196, 181, 253, 0.5)", // purple-300
-  red: "rgba(252, 165, 165, 0.5)",    // red-300
-  orange: "rgba(253, 186, 116, 0.5)", // orange-300
-  brown: "rgba(181, 136, 99, 0.5)",   // custom brown
-  teal: "rgba(94, 234, 212, 0.5)",    // teal-300
+  blue: "rgba(191, 219, 254, 0.5)",   // blue-200
+  green: "rgba(167, 243, 208, 0.5)",  // green-200
+  purple: "rgba(221, 214, 254, 0.5)", // purple-200
+  red: "rgba(254, 202, 202, 0.5)",    // red-200
+  orange: "rgba(254, 215, 170, 0.5)", // orange-200
+  brown: "rgba(196, 164, 132, 0.5)",  // custom brown
+  teal: "rgba(153, 246, 228, 0.5)",   // teal-200
 };
+
 
 const PolygonDrawingTool = () => {
   const canvasRef = useRef(null);
