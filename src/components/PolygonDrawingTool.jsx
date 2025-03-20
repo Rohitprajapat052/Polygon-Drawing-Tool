@@ -3,15 +3,14 @@ import React, { useRef, useState, useEffect } from "react";
 const COLORS = ["blue", "green", "purple", "red", "orange", "brown", "teal"];
 
 const LIGHT_COLORS = {
-    blue: "#eff6ff", 
-    green: "#dcfce7",
-    purple: "#f3e8ff", 
-    red: "#fee2e2", 
-    orange: "#ffedd5", 
-    brown: "#ede0d4", 
-    teal: "#ccfbf1", 
+  blue: "#eff6ff",
+  green: "#dcfce7",
+  purple: "#f3e8ff",
+  red: "#fee2e2",
+  orange: "#ffedd5",
+  brown: "#ede0d4",
+  teal: "#ccfbf1",
 };
-
 
 const PolygonDrawingTool = () => {
   const canvasRef = useRef(null);
@@ -27,15 +26,15 @@ const PolygonDrawingTool = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-  
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
+
     if (image) {
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     } else {
       drawGrid(ctx);
     }
-  
+
     polygons.forEach(({ color, points }, index) => {
       const fillColor = LIGHT_COLORS[color] || "#ddd";
       ctx.fillStyle = fillColor;
@@ -50,21 +49,22 @@ const PolygonDrawingTool = () => {
       });
 
       ctx.closePath();
-      ctx.fill(); 
+      ctx.fill();
       ctx.stroke();
-  
+
       // Draw labels for points
       points.forEach((point, i) =>
         drawPointLabel(ctx, point, String.fromCharCode(65 + i), color)
       );
-  
+
       // Calculate polygon center and draw the number
-      if (points.length > 2) { // Ensure it's a valid polygon
+      if (points.length > 2) {
+        // Ensure it's a valid polygon
         const centerX =
           points.reduce((sum, point) => sum + point.x, 0) / points.length;
         const centerY =
           points.reduce((sum, point) => sum + point.y, 0) / points.length;
-  
+
         ctx.fillStyle = "black";
         ctx.font = "16px Arial bold";
         ctx.textAlign = "center";
@@ -72,7 +72,7 @@ const PolygonDrawingTool = () => {
         ctx.fillText(index + 1, centerX, centerY);
       }
     });
-  
+
     if (points.length > 0) {
       ctx.strokeStyle = currentColor;
       ctx.lineWidth = 2;
@@ -82,12 +82,12 @@ const PolygonDrawingTool = () => {
         else ctx.lineTo(point.x, point.y);
       });
       ctx.stroke();
-  
+
       points.forEach((point, i) =>
         drawPointLabel(ctx, point, String.fromCharCode(65 + i), currentColor)
       );
     }
-  
+
     if (tempPoint && points.length > 0) {
       ctx.strokeStyle = currentColor;
       ctx.lineWidth = 2;
@@ -98,8 +98,6 @@ const PolygonDrawingTool = () => {
       ctx.setLineDash([]);
     }
   };
-  
-  
 
   useEffect(() => {
     drawCanvas();
@@ -155,11 +153,11 @@ const PolygonDrawingTool = () => {
       );
 
       if (distance < 10) {
-        const polygonName = prompt("Add tags for this ROI (comma separated):");
-        if (polygonName) {
+        const polygonTag = prompt("Add tags for this ROI (comma separated):");
+        if (polygonTag) {
           setPolygons([
             ...polygons,
-            { name: polygonName, points, color: currentColor },
+            { tag: polygonTag, points, color: currentColor },
           ]);
           setPoints([]);
           setIsDrawing(false);
@@ -277,12 +275,19 @@ const PolygonDrawingTool = () => {
                   </tr>
                 ))}
               </tbody>
-            <tfoot>
+              <tfoot>
                 <tr className="border border-gray-300">
-                     <td className="border border-gray-300 px-4 py-2 font-bold bg-gray-200">Tags</td>
-                     <td colSpan="2" className="border border-gray-300 px-4 py-2 text-black">#triangle</td>
-                 </tr>
-           </tfoot>
+                  <td className="border border-gray-300 px-4 py-2 font-bold bg-gray-200">
+                    Tags
+                  </td>
+                  <td
+                    colSpan="2"
+                    className="border border-gray-300 px-4 py-2 text-black"
+                  >
+                    {polygon.tag || "No tag"}
+                  </td>
+                </tr>
+              </tfoot>
             </table>
           </div>
         ))}
