@@ -277,6 +277,12 @@ const PolygonDrawingTool = () => {
                   </tr>
                 ))}
               </tbody>
+            <tfoot>
+                <tr className="border border-gray-300">
+                     <td className="border border-gray-300 px-4 py-2 font-bold bg-gray-200">Tags</td>
+                     <td colSpan="2" className="border border-gray-300 px-4 py-2 text-black">#triangle</td>
+                 </tr>
+           </tfoot>
             </table>
           </div>
         ))}
