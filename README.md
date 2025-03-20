@@ -1,4 +1,4 @@
-Here is your `README.md` content, ready for copy-pasting:  
+
 
 ```markdown
 # Polygon Drawing Tool  
