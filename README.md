@@ -47,7 +47,5 @@ A React-based **Polygon Drawing Tool** that allows users to draw polygons on a c
 
 
 
-## License  
-This project is open-source and free to use.
-```
+
 
