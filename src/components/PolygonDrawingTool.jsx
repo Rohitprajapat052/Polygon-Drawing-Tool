@@ -138,7 +138,6 @@ const PolygonDrawingTool = () => {
         ctx.fillText(text, firstPoint.x, firstPoint.y - 5);
       }
       
-      
     }
     
   };
