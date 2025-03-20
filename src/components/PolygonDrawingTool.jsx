@@ -3,13 +3,13 @@ import React, { useRef, useState, useEffect } from "react";
 const COLORS = ["blue", "green", "purple", "red", "orange", "brown", "teal"];
 
 const LIGHT_COLORS = {
-  blue: "#eff6ff",
-  green: "#dcfce7",
-  purple: "#f3e8ff",
-  red: "#fee2e2",
-  orange: "#ffedd5",
-  brown: "#ede0d4",
-  teal: "#ccfbf1",
+  blue: "rgba(147, 197, 253, 0.5)",   // blue-300
+  green: "rgba(134, 239, 172, 0.5)",  // green-300
+  purple: "rgba(196, 181, 253, 0.5)", // purple-300
+  red: "rgba(252, 165, 165, 0.5)",    // red-300
+  orange: "rgba(253, 186, 116, 0.5)", // orange-300
+  brown: "rgba(181, 136, 99, 0.5)",   // custom brown
+  teal: "rgba(94, 234, 212, 0.5)",    // teal-300
 };
 
 const PolygonDrawingTool = () => {
