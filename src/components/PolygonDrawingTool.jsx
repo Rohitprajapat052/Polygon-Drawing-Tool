@@ -104,14 +104,27 @@ const PolygonDrawingTool = () => {
       const distance = Math.sqrt(
         (lastPoint.x - firstPoint.x) ** 2 + (lastPoint.y - firstPoint.y) ** 2
       );
-
+    
       if (distance < 10) {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
-        ctx.fillRect(firstPoint.x - 90, firstPoint.y - 20, 120, 30);         ctx.fillStyle = "white";
+        const text = "Drop to complete";
         ctx.font = "14px Arial";
-        ctx.fillText("Drop to complete", firstPoint.x - 30, firstPoint.y - 5);
+        const textWidth = ctx.measureText(text).width;
+        const padding = 8;
+    
+        ctx.fillStyle = "rgba(0, 0, 0, 0.8)"; // Dark semi-transparent background
+        ctx.fillRect(
+          firstPoint.x - textWidth / 2 - padding, 
+          firstPoint.y - 20, 
+          textWidth + padding * 2, 
+          24
+        );
+    
+        ctx.fillStyle = "white"; // Text color
+        ctx.textAlign = "center";
+        ctx.fillText(text, firstPoint.x, firstPoint.y - 5);
       }
     }
+    
   };
 
   useEffect(() => {
